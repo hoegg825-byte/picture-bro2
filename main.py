@@ -266,9 +266,9 @@ async def on_message(message: discord.Message):
                     uploader_name=message.author.display_name,
                     uploader_id=message.author.id
                 )
-                logger.info(f"[除錯-資料庫] 成功將圖片 '{final_name}' 記錄寫入 SQLite images.db")
+                logger.info(f"[除錯-資料庫] 成功將圖片 '`{final_name}`' 記錄寫入 SQLite images.db")
 
-                await message.reply(f"圖片{final_name}已成功保存")
+                await message.reply(f"圖片`{final_name}`已成功保存")
             except Exception as e:
                 logger.error(f"[除錯-存圖錯誤]: {e}")
                 await message.reply(f"❌ 儲存失敗：{e}")
@@ -339,7 +339,7 @@ async def search_image(interaction: discord.Interaction, 圖片名稱: str):
         logger.info(f"[除錯-GDrive] 下載完成 (檔案大小: {size_bytes} bytes)，正在發送至 Discord...")
 
         discord_file = discord.File(fp=fh, filename=f"{圖片名稱}{extension}")
-        await interaction.followup.send(content=f"🖼️ `{圖片名稱}`", file=discord_file)
+        await interaction.followup.send(content="圖:", file=discord_file)
         logger.info(f"[除錯-搜尋] 圖片 '{圖片名稱}' 發送完成！")
     except Exception as e:
         logger.error(f"[除錯-搜尋異常] 下載或發送圖片失敗: {e}")
@@ -427,7 +427,7 @@ async def save_image_cmd(
         )
         logger.info(f"[除錯-資料庫] 已將 '{final_name}' 存入本地 images.db")
 
-        await interaction.followup.send(f"圖片{final_name}已成功保存")
+        await interaction.followup.send(f"圖片`{final_name}`已成功保存")
     except Exception as e:
         logger.error(f"[除錯-上傳異常] 上傳失敗: {e}")
         await interaction.followup.send(f"❌ 儲存失敗：{e}")
